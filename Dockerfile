@@ -1,12 +1,14 @@
 FROM ruby:2.7-alpine
 
+ENV BUNDLER_VERSION=2.1.4
+
 RUN apk update \
     && apk upgrade \
     && apk add --update --no-cache \
     bash build-base postgresql-dev tzdata \
     nodejs yarn
 
-RUN gem install bundler:2.1.4
+RUN gem install bundler:$BUNDLER_VERSION
 
 WORKDIR /usr/src/app
 
