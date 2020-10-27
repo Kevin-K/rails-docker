@@ -1,11 +1,22 @@
-FROM ruby:2.7.0
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
-RUN mkdir /app
-WORKDIR /app
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+FROM ruby:2.7-alpine
+
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache \
+    bash build-base postgresql-dev tzdata \
+    nodejs yarn
+
+RUN gem install bundler:2.1.4
+
+WORKDIR /usr/src/app
+
+COPY Gemfile* ./
 RUN bundle install
-COPY . /app
+
+COPY package.json yarn.lock ./
+RUN yarn install --check-files
+
+COPY . .
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
