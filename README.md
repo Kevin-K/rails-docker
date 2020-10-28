@@ -9,14 +9,14 @@ See the docker docs for coverage on how this is crafted: https://docs.docker.com
 Run the following to create a new "app":
 
 ```bash
-curl https://raw.githubusercontent.com/kevin-k/rails-docker-init/setup/install.sh | bash -s <install location>
+curl https://raw.githubusercontent.com/kevin-k/rails-docker-init/v0.1.0-preview/install.sh | bash -s <install location>
 ```
 
 ##### Example
 
 Install new app at ~/git/my_app (directory created by install)
 ```bash
-curl https://raw.githubusercontent.com/kevin-k/rails-docker-init/setup/install.sh | bash -s ~/git/my_app
+curl https://raw.githubusercontent.com/kevin-k/rails-docker-init/v0.1.0-preview/install.sh | bash -s ~/git/my_app
 ```
 
 With that you've pulled down this base setup, and ran the initialization process for a rails app with postgres!

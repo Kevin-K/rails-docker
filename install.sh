@@ -7,7 +7,7 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-git clone --depth=1 --branch=main git@github.com:Kevin-K/rails-docker-init.git $1
+git clone --depth=1 --branch=v0.1.0-preview git@github.com:Kevin-K/rails-docker-init.git $1
 cd $1
 rm -rf .git README.md install.sh && git init .
 docker-compose build
