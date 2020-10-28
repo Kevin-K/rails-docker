@@ -8,11 +8,15 @@ See the docker docs for coverage on how this is crafted: https://docs.docker.com
 
 Run the following to create a new "app":
 
+```bash
+curl https://raw.githubusercontent.com/kevin-k/rails-docker-init/setup/install.sh | bash -s <install location>
 ```
-git clone --depth=1 --branch=main git@github.com:Kevin-K/rails-docker-init.git app
-cd app
-rm -rf .git README.md && git init .
-docker-compose run --no-deps web rails new . --force --database=postgresql
+
+##### Example
+
+Install new app at ~/git/my_app (directory created by install)
+```bash
+curl https://raw.githubusercontent.com/kevin-k/rails-docker-init/setup/install.sh | bash -s ~/git/my_app
 ```
 
 With that you've pulled down this base setup, and ran the initialization process for a rails app with postgres!
