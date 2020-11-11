@@ -7,7 +7,7 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-git clone --depth=1 --branch=db-setup-and-initial-build git@github.com:Kevin-K/rails-docker-init.git $1
+git clone --depth=1 --branch=db-setup-and-initial-build https://github.com/Kevin-K/rails-docker-init.git $1
 cd $1
 rm -rf .git README.md install.sh && git init .
 touch rails_docker_setup.log
