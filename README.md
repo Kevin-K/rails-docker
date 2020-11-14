@@ -42,7 +42,7 @@ Always looking for collaborators! Current list of feature requests:
 1. **Configurable database installation strategy.** 
    1. Add argument-driven support to install.sh for mysql.
    2. Add argument-driven support to install.sh for sqlite3.
-2. **Configurable webpacker framework selection. **
+2. **Configurable webpacker framework selection.**
    1. Add argument-driven support for selecting a framework for webpacker (react, vue, angular, elm, stimulus)
 3. **Configurable cache installation strategy.** 
    1. Add argument-driven support to install.sh for including redis (add redis in compose & gem installation/config). [see docs](https://guides.rubyonrails.org/caching_with_rails.html#activesupport-cache-rediscachestore).
