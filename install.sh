@@ -7,26 +7,69 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-git clone --depth=1 --branch=v0.1.0-preview https://github.com/Kevin-K/rails-docker-init.git $1
-cd $1
-rm -rf .git README.md install.sh && git init .
-touch rails_docker_setup.log
+sys_dep_check() {
+    git version > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        echo "Unable to check git. Ensure git is installed"
+        exit 3
+    fi
+    docker info > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        echo "Unable to check docker. Ensure docker is installed and daemon is running"
+        exit 3
+    fi
 
-echo "Creating Rails app..."
-docker-compose run --no-deps web rails new . --force --database=postgresql > rails_docker_setup.log
+    docker-compose version > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        echo "Unable to check docker-compose. Ensure docker-compose is installed"
+        exit 3
+    fi
+}
+
+repo_pull() {
+    git clone --depth=1 --branch=v0.1.0-preview https://github.com/Kevin-K/rails-docker-init.git $1
+    cd $1
+    rm -rf .git README.md install.sh && git init .
+    touch rails_docker_setup.log
+}
+
+create_rails() {
+    docker-compose run --no-deps web rails new . --force --database=postgresql > rails_docker_setup.log
+}
 
 # Linux/Windows users need to set ownership of the files
 # due to a docker behavior.
-if type "chown" > /dev/null; then
-    echo "Setting file permissions..."
-    sudo chown -R $USER:$USER .
-fi
+linux_permissions() {
+    if type "chown" > /dev/null; then
+        echo "Setting file permissions..."
+        sudo -u chown -R $USER:$USER .
+    fi
+}
+
+rails_deps() {
+    docker-compose build > rails_docker_setup.log
+}
+
+overrides() {
+    yes | cp -rf overrides/* .
+    rm -rf overrides
+}
+
+echo "System dependency check..."
+sys_dep_check
+
+echo "Base repo cloning..."
+repo_pull $1
+
+echo "Creating Rails app..."
+create_rails
+linux_permissions
+
 echo "Installing dependencies..."
-docker-compose build > rails_docker_setup.log
+rails_deps
 
 echo "Copying overrides..."
-yes | cp -rf overrides/* .
-rm -rf overrides
+overrides
 
 echo "Complete!"
 echo ""

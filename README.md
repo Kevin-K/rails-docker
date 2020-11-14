@@ -9,7 +9,9 @@ See the docker docs for coverage on how this is crafted: https://docs.docker.com
 Run the following to create a new "app":
 
 ```bash
-curl https://raw.githubusercontent.com/kevin-k/rails-docker-init/v0.1.0-preview/install.sh | bash -s <install location>
+wget https://raw.githubusercontent.com/kevin-k/rails-docker-init/v0.1.0-preview/install.sh
+chmod +x install.sh
+./install.sh app
 ```
 
 With that you've pulled down this base setup, and ran the initialization process for a rails app with postgres!
@@ -17,7 +19,7 @@ With that you've pulled down this base setup, and ran the initialization process
 Bring your app online with:
 
 ```bash
-cd <install location>
+cd app
 docker-compose up
 ```
 
